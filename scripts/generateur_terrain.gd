@@ -12,7 +12,7 @@ var zones_plateformes = []
 func _ready():
     generer_sol()
     generer_plateformes()
-    
+
 
 func generer_plateformes():
     for zone in zones_plateformes:
@@ -26,25 +26,20 @@ func generer_plateformes():
         var position_x = position_sol_x + largeur_sol / 2.0
         var position_y = hauteur_sol - randi_range(120, 200)
 
-        # Creer la plateforme
         var plateforme = plateforme_scene.instantiate()
         add_child(plateforme)
 
         plateforme.position = Vector2(position_x, position_y)
 
-        # Une chance sur deux de bouger
         plateforme.mobile = randi_range(0, 1) == 1
 
-        # Distance adaptee a la largeur du terrain
         plateforme.distance = maxf(
             0.0,
             largeur_sol / 2.0 - 120.0
         )
 
-        # Ajouter une medaille
         var medaille = medaille_scene.instantiate()
 
-        # La medaille devient enfant de la plateforme
         plateforme.add_child(medaille)
         medaille.position = Vector2(0, -50)
 
@@ -62,10 +57,8 @@ func generer_sol():
     for i in range(12):
         var largeur_sol = randi_range(5, 9) * 64
 
-        # Calculer la hauteur de la section actuelle
         var epaisseur_sol = bas_sol - hauteur_surface
 
-        # Creer le terrain
         var section = section_sol_scene.instantiate()
         add_child(section)
 
@@ -82,7 +75,6 @@ func generer_sol():
             "y": hauteur_surface
         })
 
-        # Ajouter parfois une medaille
         if randi_range(0, 1) == 1:
             var medaille = medaille_scene.instantiate()
 
@@ -97,7 +89,6 @@ func generer_sol():
                 _on_medaille_ramassee
             )
 
-        # Calculer la hauteur de la prochaine section
         var prochaine_hauteur = hauteur_surface
 
         if i < 11:
@@ -108,12 +99,10 @@ func generer_sol():
                 512.0
             )
 
-        # Choisir le type de passage
         var largeur_trou = 64.0
 
         if i < 11:
             if prochaine_hauteur == hauteur_surface:
-                # Pont aleatoire entre deux sections
                 if randi_range(0, 1) == 1:
                     var pont = pont_scene.instantiate()
                     add_child(pont)
@@ -125,7 +114,6 @@ func generer_sol():
 
                     pont.scale.x = (largeur_trou + 20.0) / 120.0
 
-        # Passer a la prochaine section
         position_x += largeur_sol + largeur_trou
         hauteur_surface = prochaine_hauteur
 

@@ -13,7 +13,6 @@ func configurer(largeur: float, hauteur: float) -> void:
 	var colonnes = maxi(3, ceili(largeur / TAILLE_TUILE))
 	var lignes = maxi(2, ceili(hauteur / TAILLE_TUILE))
 
-	# Construire le terrain tuile par tuile
 	for y in range(lignes):
 		for x in range(colonnes):
 			var colonne_atlas = 1
@@ -34,7 +33,6 @@ func configurer(largeur: float, hauteur: float) -> void:
 				Vector2i(colonne_atlas, ligne_atlas)
 			)
 
-	# Adapter la collision au terrain
 	var largeur_reelle = colonnes * TAILLE_TUILE
 	var hauteur_reelle = lignes * TAILLE_TUILE
 
