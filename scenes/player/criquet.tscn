@@ -6,6 +6,38 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeiuy"]
 size = Vector2(35, 35)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yojrc"]
+atlas = ExtResource("2_o318n")
+region = Rect2(0, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xofh5"]
+atlas = ExtResource("2_o318n")
+region = Rect2(248, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ektgh"]
+atlas = ExtResource("2_o318n")
+region = Rect2(496, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ui5b5"]
+atlas = ExtResource("2_o318n")
+region = Rect2(744, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehpcq"]
+atlas = ExtResource("2_o318n")
+region = Rect2(992, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7w5f"]
+atlas = ExtResource("2_o318n")
+region = Rect2(1240, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l460f"]
+atlas = ExtResource("2_o318n")
+region = Rect2(1488, 264, 248, 264)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pfaf"]
+atlas = ExtResource("2_o318n")
+region = Rect2(1736, 264, 248, 264)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_if2gh"]
 atlas = ExtResource("2_o318n")
 region = Rect2(0, 0, 247, 264)
@@ -106,6 +138,35 @@ region = Rect2(1736, 264, 248, 264)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_yojrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xofh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ektgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ui5b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehpcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7w5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l460f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6pfaf")
+}],
+"loop": 1,
+"name": &"dash",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_if2gh")
 }, {
 "duration": 1.0,
@@ -203,7 +264,9 @@ shape = SubResource("RectangleShape2D_yeiuy")
 position = Vector2(5, -17)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_vtti8")
-animation = &"jump"
+animation = &"dash"
+frame = 7
+frame_progress = 0.12092059
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1096220679]
 position_smoothing_enabled = true
