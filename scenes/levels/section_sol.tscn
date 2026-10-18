@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://wf8wu1pamhd7"]
+
+[ext_resource type="Script" uid="uid://cjnhl1hj4xyx5" path="res://scripts/section_sol.gd" id="1_ikob6"]
+[ext_resource type="Texture2D" uid="uid://2oa5pij1kka6" path="res://assets/sprites/bug_rush_tileset_64.png" id="2_gr0f4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i8up"]
+size = Vector2(475, 65)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ikob6"]
+texture = ExtResource("2_gr0f4")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_vtti8"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_ikob6")
+
+[node name="SectionSol" type="StaticBody2D" unique_id=1123793140]
+script = ExtResource("1_ikob6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=232614937]
+position = Vector2(37.5, -6.5)
+shape = SubResource("RectangleShape2D_3i8up")
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=378840742]
+tile_set = SubResource("TileSet_vtti8")

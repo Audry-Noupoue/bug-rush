@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://kywep8nrsk1h"]
+
+[ext_resource type="Texture2D" uid="uid://bybwih27oc8xm" path="res://assets/sprites/Pont.png" id="1_bs3mv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i8up"]
+size = Vector2(120, 14.5)
+
+[node name="PontBois" type="StaticBody2D" unique_id=1560292023]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1579503105]
+position = Vector2(2, 14)
+shape = SubResource("RectangleShape2D_3i8up")
+
+[node name="Apparence" type="Sprite2D" parent="." unique_id=720592734]
+position = Vector2(1, 10)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_bs3mv")

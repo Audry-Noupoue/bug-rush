@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dtmn2g07brgu6"]
+
+[ext_resource type="Script" uid="uid://bfps8jcqv8s8f" path="res://scripts/medaille.gd" id="1_e16v5"]
+[ext_resource type="Texture2D" uid="uid://cubjfk4bcsfpo" path="res://assets/sprites/medaille.png" id="2_4qd1o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3i8up"]
+radius = 15.0
+
+[node name="Medaille" type="Area2D" unique_id=119681998]
+script = ExtResource("1_e16v5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=256189633]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("2_4qd1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=925845897]
+shape = SubResource("CircleShape2D_3i8up")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
