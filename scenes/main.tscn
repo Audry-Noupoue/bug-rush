@@ -60,7 +60,7 @@ centered = false
 z_index = -9
 scroll_scale = Vector2(0.1, 0.1)
 repeat_size = Vector2(2172, 0)
-autoscroll = Vector2(-15, 0)
+autoscroll = Vector2(-16, 0)
 
 [node name="Nuages" type="Sprite2D" parent="FondNuages" unique_id=1201899522]
 position = Vector2(0, 30)
