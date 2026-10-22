@@ -1,26 +1,37 @@
 
 extends AnimatableBody2D
 
-@export var vitesse: float = 100.0
-@export var distance: float = 100.0
+@export var vitesse: float = 50.0
 
 var mobile: bool = false
-var position_depart: Vector2
-var direction: int = 1
+var direction_mouvement: Vector2 = Vector2.ZERO
+var distance: float = 100.0
 
 
 func _ready():
-    position_depart = position
+    if mobile:
+        demarrer_mouvement()
 
 
-func _physics_process(delta):
-    if not mobile:
-        return
+func demarrer_mouvement():
+    var destination = position + direction_mouvement * distance
 
-    position.x += vitesse * direction * delta
+    var duree = distance / vitesse
 
-    if position.x >= position_depart.x + distance:
-        direction = -1
+    var tween = create_tween()
+    tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+    tween.set_loops()
 
-    elif position.x <= position_depart.x - distance:
-        direction = 1
+    tween.tween_property(
+        self,
+        "position",
+        destination,
+        duree
+    )
+
+    tween.tween_property(
+        self,
+        "position",
+        position,
+        duree
+    )

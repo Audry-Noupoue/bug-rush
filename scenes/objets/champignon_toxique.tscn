@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dc5hcbe8lkv4p"]
+
+[ext_resource type="Script" uid="uid://dmyxbb2bobdl3" path="res://scripts/champignon_toxique.gd" id="1_tgvc7"]
+[ext_resource type="Texture2D" uid="uid://dqfl6wtxrgtvo" path="res://assets/sprites/Champignon_toxique.png" id="2_t07d1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ksodl"]
+radius = 43.0
+height = 86.0
+
+[node name="ChampignonToxique" type="Area2D" unique_id=1741179369]
+script = ExtResource("1_tgvc7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1870307751]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("2_t07d1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=504453538]
+shape = SubResource("CapsuleShape2D_ksodl")

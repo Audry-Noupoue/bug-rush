@@ -37,10 +37,11 @@ func _on_zone_chute_body_entered(body):
 			body.global_position = Vector2(300, 450)
 
 
-# func _on_medaille_medaille_ramassee():
-#     score += 10
-#     label_score.text = "Score : " + str(score)
-
 func _on_generateur_terrain_medaille_ramassee() -> void:
 	score += 10
+	label_score.text = "Score : " + str(score)
+	
+	
+func _on_generateur_terrain_champignon_touche() -> void:
+	score = maxi(0, score - 5)
 	label_score.text = "Score : " + str(score)

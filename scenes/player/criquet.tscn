@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://yn1dbq1x5lvt" path="res://scripts/criquet.gd" id="1_o318n"]
 [ext_resource type="Texture2D" uid="uid://bvcg2xi1g7dob" path="res://assets/sprites/criquet_animations.png" id="2_o318n"]
+[ext_resource type="Script" uid="uid://dulclb2a8nnty" path="res://scripts/state_machine.gd" id="3_77fqt"]
+[ext_resource type="Script" uid="uid://bp5j1sexx3pw8" path="res://scripts/states/criquet_idle.gd" id="4_p1kbr"]
+[ext_resource type="Script" uid="uid://ccv4nc5k0f1ya" path="res://scripts/states/criquet_run.gd" id="5_s8et4"]
+[ext_resource type="Script" uid="uid://cyfd44gso1v4d" path="res://scripts/states/criquet_jump.gd" id="6_0ibf7"]
+[ext_resource type="Script" uid="uid://b8nu60qepl03y" path="res://scripts/states/criquet_dash.gd" id="7_1scr2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeiuy"]
 size = Vector2(35, 35)
@@ -163,7 +168,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"dash",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -273,3 +278,23 @@ position_smoothing_enabled = true
 drag_vertical_enabled = true
 drag_top_margin = 0.8
 drag_bottom_margin = 0.8
+
+[node name="StateMachine" type="Node" parent="." unique_id=451848677 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_77fqt")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2146955365 node_paths=PackedStringArray("criquet")]
+script = ExtResource("4_p1kbr")
+criquet = NodePath("../..")
+
+[node name="Run" type="Node" parent="StateMachine" unique_id=644991708 node_paths=PackedStringArray("criquet")]
+script = ExtResource("5_s8et4")
+criquet = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=2099739791 node_paths=PackedStringArray("criquet")]
+script = ExtResource("6_0ibf7")
+criquet = NodePath("../..")
+
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1525235225 node_paths=PackedStringArray("criquet")]
+script = ExtResource("7_1scr2")
+criquet = NodePath("../..")
