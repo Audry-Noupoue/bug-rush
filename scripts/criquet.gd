@@ -8,6 +8,7 @@ const DASH_DURATION = 0.25
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
+@onready var son_saut: AudioStreamPlayer = $SonSaut
 
 
 func _ready() -> void:
@@ -29,3 +30,9 @@ func _physics_process(delta: float) -> void:
 func jouer_animation(nom: String) -> void:
 	if animated_sprite.animation != nom or not animated_sprite.is_playing():
 		animated_sprite.play(nom)
+
+
+func jouer_son_saut() -> void:
+	print("SON SAUT DÉCLENCHÉ")
+	son_saut.play()
+	print("Lecture : ", son_saut.playing)

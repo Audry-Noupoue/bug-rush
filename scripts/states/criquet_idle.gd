@@ -36,6 +36,7 @@ func physics_update(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("jump"):
 		criquet.velocity.y = criquet.JUMP_VELOCITY
+		criquet.jouer_son_saut()
 		Transitioned.emit(self, "Jump")
 		return
 

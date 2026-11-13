@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://cqoalb7hw5j1h"]
+
+[ext_resource type="Script" uid="uid://bh6alom0quhrh" path="res://scripts/menu_principal.gd" id="1_i85hu"]
+[ext_resource type="Texture2D" uid="uid://cu30df1uw4ojy" path="res://assets/sprites/menu.png" id="2_mk4g1"]
+[ext_resource type="PackedScene" uid="uid://2cslg7iwtkdd" path="res://scenes/instructions_menu.tscn" id="3_486ty"]
+[ext_resource type="PackedScene" uid="uid://d11xax3wrk1fx" path="res://scenes/options_menu.tscn" id="3_iep14"]
+
+[node name="MenuPrincipal" type="Control" unique_id=129068843]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i85hu")
+
+[node name="Background" type="TextureRect" parent="." unique_id=99468592]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mk4g1")
+expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=626758117]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.5
+anchor_right = 0.1
+anchor_bottom = 0.5
+offset_left = -0.20000458
+offset_top = -56.5
+offset_right = 199.79999
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1785710052]
+layout_mode = 2
+
+[node name="ButtonJouer" type="Button" parent="CenterContainer/VBoxContainer" unique_id=900962345]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Jouer"
+
+[node name="ButtonParametres" type="Button" parent="CenterContainer/VBoxContainer" unique_id=243021937]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Paramétres"
+
+[node name="ButtonInstructions" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1673108991]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Instruction"
+
+[node name="ButtonQuitter" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1022678025]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quitter"
+
+[node name="InstructionsMenu" parent="." unique_id=159936362 instance=ExtResource("3_486ty")]
+visible = false
+layout_mode = 1
+
+[node name="OptionsMenu" parent="." unique_id=465498009 instance=ExtResource("3_iep14")]
+visible = false
+layout_mode = 0
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonJouer" to="." method="_on_button_jouer_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonParametres" to="." method="_on_button_parametres_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonInstructions" to="." method="_on_button_instructions_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonQuitter" to="." method="_on_button_quitter_pressed"]

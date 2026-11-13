@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://c7taae0xc8det"]
+
+[ext_resource type="Script" uid="uid://bq5adcjacgata" path="res://scripts/pause_menu.gd" id="1_myx47"]
+[ext_resource type="PackedScene" uid="uid://d11xax3wrk1fx" path="res://scenes/options_menu.tscn" id="2_kukqi"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1150129641]
+process_mode = 3
+script = ExtResource("1_myx47")
+
+[node name="Root" type="Control" parent="." unique_id=1129275478]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Root" unique_id=1688182823]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=693971436]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Root/CenterContainer" unique_id=953503036]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root/CenterContainer/VBoxContainer" unique_id=1893861177]
+layout_mode = 2
+text = "Pause"
+
+[node name="ResumeButton" type="Button" parent="Root/CenterContainer/VBoxContainer" unique_id=122253525]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reprendre"
+
+[node name="OptionsButton" type="Button" parent="Root/CenterContainer/VBoxContainer" unique_id=1964054768]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Options"
+
+[node name="MainMenuButton" type="Button" parent="Root/CenterContainer/VBoxContainer" unique_id=428195636]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menu principal"
+
+[node name="OptionsMenu" parent="." unique_id=465498009 instance=ExtResource("2_kukqi")]
+visible = false

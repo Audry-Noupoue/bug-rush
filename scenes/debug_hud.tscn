@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://belr6aye27lv7"]
+
+[ext_resource type="Script" uid="uid://bja4hspr0chj2" path="res://scripts/debug_hud.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.098, 0.29, 0.275, 0.93)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.467, 0.78, 0.533, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="DebugHUD" type="CanvasLayer" unique_id=1627157008]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1091008904]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -345.0
+offset_bottom = 214.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=888481756]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=675722786]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.553, 0.922, 0.584, 1)
+theme_override_font_sizes/font_size = 20
+text = "BUG RUSH — DEBUG"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer" unique_id=827665684]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer" unique_id=2057237575]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="LabelFPS" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1311866899]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FPS"
+
+[node name="ValueFPS" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=605685204]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="LabelRAM" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=145628654]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RAM"
+
+[node name="ValueRAM" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1010613936]
+layout_mode = 2
+text = "0 MB"
+horizontal_alignment = 2
+
+[node name="LabelRAMMin" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1228156153]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RAM min."
+
+[node name="ValueRAMMin" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1408475626]
+layout_mode = 2
+text = "0 MB"
+horizontal_alignment = 2
+
+[node name="LabelRAMMax" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1666724831]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RAM max."
+
+[node name="ValueRAMMax" type="Label" parent="PanelContainer/VBoxContainer/GridContainer" unique_id=1065840774]
+layout_mode = 2
+text = "0 MB"
+horizontal_alignment = 2

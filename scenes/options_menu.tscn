@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://d11xax3wrk1fx"]
+
+[ext_resource type="Script" uid="uid://w5upwg8wdcte" path="res://scripts/options_menu.gd" id="1_liyum"]
+
+[node name="OptionsMenu" type="Control" unique_id=465498009]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_liyum")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1079971789]
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 187.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=657900185]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer" unique_id=382734731]
+layout_mode = 2
+text = "Options"
+
+[node name="LabelMusique" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1359275225]
+layout_mode = 2
+text = "Volume musique"
+
+[node name="SliderMusique" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=1942596631]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="LabelEffets" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1933979910]
+layout_mode = 2
+text = "volume effets sonores"
+
+[node name="SliderEffets" type="HSlider" parent="PanelContainer/VBoxContainer" unique_id=1205099000]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="FullscreenCheck" type="CheckBox" parent="PanelContainer/VBoxContainer" unique_id=1967168653]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Plein écran"
+
+[node name="BackButton" type="Button" parent="PanelContainer/VBoxContainer" unique_id=646545078]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Retour"

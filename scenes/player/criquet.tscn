@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ccv4nc5k0f1ya" path="res://scripts/states/criquet_run.gd" id="5_s8et4"]
 [ext_resource type="Script" uid="uid://cyfd44gso1v4d" path="res://scripts/states/criquet_jump.gd" id="6_0ibf7"]
 [ext_resource type="Script" uid="uid://b8nu60qepl03y" path="res://scripts/states/criquet_dash.gd" id="7_1scr2"]
+[ext_resource type="AudioStream" uid="uid://cjvrkf2bmyhr4" path="res://assets/audio/jump.wav" id="8_p1kbr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeiuy"]
 size = Vector2(35, 35)
@@ -298,3 +299,8 @@ criquet = NodePath("../..")
 [node name="Dash" type="Node" parent="StateMachine" unique_id=1525235225 node_paths=PackedStringArray("criquet")]
 script = ExtResource("7_1scr2")
 criquet = NodePath("../..")
+
+[node name="SonSaut" type="AudioStreamPlayer" parent="." unique_id=1848431402]
+stream = ExtResource("8_p1kbr")
+volume_db = 24.0
+bus = &"SFX"

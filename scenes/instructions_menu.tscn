@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://2cslg7iwtkdd"]
+
+[ext_resource type="Script" uid="uid://oyfs58a0hd52" path="res://scripts/instructions_menu.gd" id="1_sprvt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtti8"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+bg_color = Color(0.16078432, 0.29411766, 0.20784314, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5686275, 0.7254902, 0.41960785, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3i8up"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.7764706, 0.6313726, 0.3019608, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="InstructionsMenu" type="Control" unique_id=159936362]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sprvt")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1304966297]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=637345298]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=606627060]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtti8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1890290055]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=82822080]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9607843, 0.84313726, 0.43137255, 1)
+theme_override_font_sizes/font_size = 36
+text = "INSTRUCTIONS"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1844136788]
+layout_mode = 2
+text = "Guide du petit criquet aventurier"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1582963293]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=766905231]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="LabelPause" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=1679934793]
+custom_minimum_size = Vector2(230, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Pause : P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelDeplacement" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=936371247]
+custom_minimum_size = Vector2(230, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Déplacement : Gauche / Droite / A / D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelSaut" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=2013227559]
+custom_minimum_size = Vector2(230, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Saut : Espace"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelDash" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=439131772]
+custom_minimum_size = Vector2(230, 55)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Dash : J"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelObjectif" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1649561343]
+layout_mode = 2
+text = "Objectif : Ramasse les médailles, évite les dangers et atteins l'arrivée !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1995520363]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.11764706, 0.16470589, 0.09803922, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_3i8up")
+text = "	Retour"
