@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cqoalb7hw5j1h"]
 
 [ext_resource type="Script" uid="uid://bh6alom0quhrh" path="res://scripts/menu_principal.gd" id="1_i85hu"]
-[ext_resource type="Texture2D" uid="uid://cu30df1uw4ojy" path="res://assets/sprites/menu.png" id="2_mk4g1"]
+[ext_resource type="Texture2D" uid="uid://bv52jxnacwx2r" path="res://assets/sprites/menu.png" id="2_mk4g1"]
 [ext_resource type="PackedScene" uid="uid://2cslg7iwtkdd" path="res://scenes/instructions_menu.tscn" id="3_486ty"]
 [ext_resource type="PackedScene" uid="uid://d11xax3wrk1fx" path="res://scenes/options_menu.tscn" id="3_iep14"]
+[ext_resource type="PackedScene" uid="uid://belr6aye27lv7" path="res://scenes/debug_hud.tscn" id="5_w5ui5"]
 
 [node name="MenuPrincipal" type="Control" unique_id=129068843]
 layout_mode = 3
@@ -70,6 +71,8 @@ layout_mode = 1
 [node name="OptionsMenu" parent="." unique_id=465498009 instance=ExtResource("3_iep14")]
 visible = false
 layout_mode = 0
+
+[node name="DebugHUD" parent="." unique_id=1627157008 instance=ExtResource("5_w5ui5")]
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonJouer" to="." method="_on_button_jouer_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ButtonParametres" to="." method="_on_button_parametres_pressed"]

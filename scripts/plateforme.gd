@@ -12,6 +12,8 @@ func _ready():
     if mobile:
         demarrer_mouvement()
 
+    add_to_group("plateformes")        
+
 
 func demarrer_mouvement():
     var destination = position + direction_mouvement * distance

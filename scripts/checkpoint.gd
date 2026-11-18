@@ -15,6 +15,7 @@ func _ready() -> void:
 	add_child(forme)
 	body_entered.connect(_sur_contact)
 	queue_redraw()
+	add_to_group("checkpoints")
 
 func _draw() -> void:
 	draw_line(Vector2(0, 0), Vector2(0, -110), Color(0.85, 0.83, 0.72), 6)

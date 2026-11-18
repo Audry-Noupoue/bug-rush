@@ -33,6 +33,7 @@ func _ready() -> void:
 	depart = global_position
 	derniere_position_x = global_position.x
 	criquet = get_tree().current_scene.get_node_or_null("Criquet") as Node2D
+	add_to_group("araignees")
 
 
 func _physics_process(delta: float) -> void:
