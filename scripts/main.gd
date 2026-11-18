@@ -9,7 +9,6 @@ var partie_terminee: bool = false
 var temps: float = 0.0
 var invulnerable: float = 0.0
 var meilleur_score: int = 0
-var meilleur_temps: float = 0.0
 
 @onready var criquet: CharacterBody2D = $Criquet
 @onready var label_vies: Label = $HUD/MarginContainer/PanelContainer/VBoxContainer/LabelVies
@@ -117,15 +116,13 @@ func terminer_partie(victoire: bool) -> void:
 	if victoire:
 		if score > meilleur_score:
 			meilleur_score = score
-		if meilleur_temps <= 0.0 or temps < meilleur_temps:
-			meilleur_temps = temps
 		sauvegarder_records()
 	SceneFin.resultat = {
 		"victoire": victoire,
 		"score": score,
 		"temps": temps,
-		"meilleur_score": meilleur_score,
-		"meilleur_temps": meilleur_temps
+		"meilleur_score": meilleur_score
+		
 	}
 	get_tree().set_meta("victoire", victoire)
 	get_tree().change_scene_to_file.call_deferred(
@@ -140,12 +137,11 @@ func charger_records() -> void:
 	var donnees = JSON.parse_string(fichier.get_as_text())
 	if donnees is Dictionary:
 		meilleur_score = int(donnees.get("meilleur_score", 0))
-		meilleur_temps = float(donnees.get("meilleur_temps", 0.0))
 
 func sauvegarder_records() -> void:
 	var fichier = FileAccess.open(RECORD_FILE, FileAccess.WRITE)
 	if fichier != null:
-		fichier.store_string(JSON.stringify({"meilleur_score": meilleur_score, "meilleur_temps": meilleur_temps}))
+		fichier.store_string(JSON.stringify({"meilleur_score": meilleur_score}))
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	# F10 : acces rapide a la scene de fin pour l'evaluation.
