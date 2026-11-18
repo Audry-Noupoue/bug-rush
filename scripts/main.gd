@@ -9,6 +9,7 @@ var partie_terminee: bool = false
 var temps: float = 0.0
 var invulnerable: float = 0.0
 var meilleur_score: int = 0
+var dernier_checkpoint: Vector2
 
 @onready var criquet: CharacterBody2D = $Criquet
 @onready var label_vies: Label = $HUD/MarginContainer/PanelContainer/VBoxContainer/LabelVies
@@ -28,6 +29,10 @@ func _ready() -> void:
 	actualiser_score()
 	araignee.attaque_criquet.connect(_on_araignee_attaque)
 	generateur.obstacle_touche.connect(perdre_vie)
+	dernier_checkpoint = criquet.global_position
+
+	for checkpoint in get_tree().get_nodes_in_group("checkpoints"):
+		checkpoint.active.connect(_checkpoint_active)
 	zone_arrivee.body_entered.connect(_on_arrivee)
 	# La generation du terrain est terminee apres _ready des enfants.
 	if not generateur.zones_plateformes.is_empty():
@@ -36,6 +41,10 @@ func _ready() -> void:
 	mini_map.initialiser(generateur, criquet, araignee, zone_arrivee)
 	vecteur_criquet.visible = false
 	vecteur_araignee.visible = false
+
+func _checkpoint_active(position_reapparition: Vector2) -> void:
+	dernier_checkpoint = position_reapparition
+	print("Checkpoint sauvegarde : ", dernier_checkpoint)	
 
 func _process(delta: float) -> void:
 	if partie_terminee:
@@ -62,17 +71,21 @@ func actualiser_vies() -> void:
 func actualiser_score() -> void:
 	label_score.text = "🏅 Score : " + str(score)
 
+
 func perdre_vie() -> void:
 	if partie_terminee or invulnerable > 0.0:
 		return
+
 	vies -= 1
 	actualiser_vies()
+
 	if vies <= 0:
 		terminer_partie(false)
 	else:
 		invulnerable = 1.5
 		criquet.velocity = Vector2.ZERO
-		criquet.global_position = Vector2(300, 450)
+		criquet.global_position = dernier_checkpoint
+
 
 func _on_araignee_attaque() -> void:
 	perdre_vie()

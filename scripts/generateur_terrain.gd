@@ -5,6 +5,7 @@ var medaille_scene = preload("res://scenes/objets/medaille.tscn")
 var section_sol_scene = preload("res://scenes/levels/section_sol.tscn")
 var pont_scene = preload("res://scenes/levels/pont_bois.tscn")
 var champignon_scene = preload("res://scenes/objets/champignon_toxique.tscn")
+@export var checkpoint_scene: PackedScene = preload("res://scenes/objets/checkpoint.tscn")
 @onready var son_medaille: AudioStreamPlayer = $SonMedaille
 
 signal medaille_ramassee
@@ -24,10 +25,26 @@ var zones_occupees = []
 
 func _ready():
 	generer_sol()
+	generer_checkpoints()
 	generer_plateformes()
 	generer_plateformes_passage()
 	generer_obstacles()
 
+func creer_checkpoint(x: float, hauteur_sol: float) -> void:
+	var checkpoint = checkpoint_scene.instantiate()
+	add_child(checkpoint)
+
+	checkpoint.global_position = Vector2(x, hauteur_sol)
+
+func generer_checkpoints() -> void:
+	for i in range(zones_plateformes.size()):
+		if i > 0 and i % 4 == 0:
+			var zone: Dictionary = zones_plateformes[i]
+
+			var x: float = float(zone["x"]) + float(zone["largeur"]) / 2.0
+			var y: float = float(zone["y"])
+
+			creer_checkpoint(x, y)
 
 func generer_champignon(position_x: float, largeur_sol: float, hauteur_sol: float):
 	if randi_range(1, 10) > 3:
