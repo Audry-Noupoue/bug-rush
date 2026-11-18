@@ -15,9 +15,6 @@
 [ext_resource type="PackedScene" path="res://scenes/objets/arrivee.tscn" id="14_finish"]
 [ext_resource type="PackedScene" path="res://scenes/minimap.tscn" id="15_minimap"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtti8"]
-size = Vector2(1001, 40)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3i8up"]
 size = Vector2(10000, 100)
 
@@ -88,16 +85,6 @@ centered = false
 [node name="Criquet" parent="." unique_id=1916629442 instance=ExtResource("1_o5qli")]
 z_index = 5
 position = Vector2(300, 450)
-
-[node name="Sol" type="StaticBody2D" parent="." unique_id=70163155]
-position = Vector2(576, 550)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol" unique_id=1624810751]
-shape = SubResource("RectangleShape2D_vtti8")
-
-[node name="Polygon2D" type="Polygon2D" parent="Sol" unique_id=1066507360]
-color = Color(1, 0.039215688, 1, 1)
-polygon = PackedVector2Array(-500, -20, 500, -20, 500, 20, -500, 20)
 
 [node name="GenerateurTerrain" type="Node2D" parent="." unique_id=1260730045]
 script = ExtResource("3_sugp2")

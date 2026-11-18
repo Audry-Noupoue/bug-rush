@@ -96,7 +96,18 @@ func _on_generateur_terrain_champignon_touche() -> void:
 
 func _on_arrivee(body: Node2D) -> void:
 	if body == criquet and not partie_terminee:
-		terminer_partie(true)
+		if scene_est_niveau_2():
+			terminer_partie(true)
+		else:
+			passer_niveau_2()
+
+func scene_est_niveau_2() -> bool:
+	return get_tree().current_scene.scene_file_path.ends_with("niveau_2.tscn")
+
+func passer_niveau_2() -> void:
+	partie_terminee = true
+	get_tree().set_meta("progression_bug_rush", {"score": score, "vies": vies, "temps": temps})
+	get_tree().change_scene_to_file.call_deferred("res://scenes/niveau_2.tscn")
 
 func terminer_partie(victoire: bool) -> void:
 	if partie_terminee:
@@ -116,8 +127,8 @@ func terminer_partie(victoire: bool) -> void:
 		"meilleur_score": meilleur_score,
 		"meilleur_temps": meilleur_temps
 	}
-	get_tree().call_deferred(
-		"change_scene_to_file",
+	get_tree().set_meta("victoire", victoire)
+	get_tree().change_scene_to_file.call_deferred(
 		"res://scenes/game_over_menu.tscn"
 	)
 func charger_records() -> void:
@@ -139,5 +150,8 @@ func sauvegarder_records() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	# F10 : acces rapide a la scene de fin pour l'evaluation.
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F10:
-		terminer_partie(true)
+		if scene_est_niveau_2():
+			terminer_partie(true)
+		else:
+			passer_niveau_2()
 		get_viewport().set_input_as_handled()

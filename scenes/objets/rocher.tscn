@@ -1,14 +1,16 @@
-[gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://scripts/obstacle.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/sprites/ennemis_obstacles/rocher_0_0.png" id="2"]
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(54, 52)
-[node name="Rocher" type="StaticBody2D"]
-collision_layer = 1
+[gd_scene format=3 uid="uid://gjtuachjhad7"]
+
+[ext_resource type="Script" uid="uid://byevsddeu7rk1" path="res://scripts/obstacle.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://0lt4k718pjs6" path="res://assets/sprites/ennemis_obstacles/rocher_0_0.png" id="2"]
+
+[node name="Rocher" type="StaticBody2D" unique_id=1761056090]
 collision_mask = 0
 script = ExtResource("1")
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("1")
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=659841104]
 scale = Vector2(0.34, 0.34)
+texture = ExtResource("2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=989444661]
+position = Vector2(-30.92009, 23.82734)
+polygon = PackedVector2Array(-1.0799103, 0.17266083, 9.92009, 3.1726608, 64.92009, 3.1726608, 62.92009, -14.827339, 58.92009, -21.82734, 57.92009, -34.82734, 46.92009, -45.82734, 28.92009, -42.82734, 19.92009, -35.82734, 15.92009, -28.82734, 8.92009, -26.82734)

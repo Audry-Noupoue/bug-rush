@@ -14,6 +14,9 @@ signal obstacle_touche
 var rocher_scene = preload("res://scenes/objets/rocher.tscn")
 var pics_scene = preload("res://scenes/objets/pics.tscn")
 
+@export var nombre_sections: int = 12
+@export var probabilite_obstacles: float = 1.0
+
 var zones_plateformes = []
 var positions_plateformes = []
 var zones_occupees = []
@@ -27,11 +30,9 @@ func _ready():
 
 
 func generer_champignon(position_x: float, largeur_sol: float, hauteur_sol: float):
-	# 30 % de chances d'apparition
 	if randi_range(1, 10) > 3:
 		return
 
-	# Eviter les bords du terrain
 	if largeur_sol <= 160:
 		return
 
@@ -190,11 +191,11 @@ func generer_plateformes_passage():
 
 
 func generer_sol():
-	var position_x = 1024.0
+	var position_x = 105.0
 	var bas_sol = 896.0
 	var hauteur_surface = 448.0
 
-	for i in range(12):
+	for i in range(nombre_sections):
 		var largeur_sol = randi_range(5, 9) * 64
 
 		var epaisseur_sol = bas_sol - hauteur_surface
@@ -233,7 +234,7 @@ func generer_sol():
 
 		var prochaine_hauteur = hauteur_surface
 
-		if i < 11:
+		if i < nombre_sections - 1:
 			prochaine_hauteur += randi_range(-1, 1) * 64
 			prochaine_hauteur = clamp(
 				prochaine_hauteur,
@@ -243,7 +244,7 @@ func generer_sol():
 
 		var largeur_trou = 64.0
 
-		if i < 11:
+		if i < nombre_sections - 1:
 			if prochaine_hauteur == hauteur_surface:
 				if randi_range(0, 1) == 1:
 					var pont = pont_scene.instantiate()
@@ -266,17 +267,15 @@ func _on_medaille_ramassee():
 	son_medaille.play()
 
 
-# Obstacles repartis sur les sections de sol, jamais pres du depart ou de l'arrivee.
-# Une seule menace par section pour conserver un parcours franchissable.
 func generer_obstacles() -> void:
 	for i in range(1, zones_plateformes.size() - 1):
 		var zone: Dictionary = zones_plateformes[i]
 		var largeur: float = float(zone["largeur"])
-		if largeur < 320.0:
+		if largeur < 320.0 or randf() > probabilite_obstacles:
 			continue
 		var x: float = float(zone["x"]) + largeur * randf_range(0.35, 0.65)
 		var y: float = float(zone["y"])
-		if i % 3 == 0:
+		if i % 5 == 0:
 			var pics = pics_scene.instantiate()
 			add_child(pics)
 			pics.position = Vector2(x, y)

@@ -8,10 +8,15 @@ static var resultat: Dictionary = {}
 @onready var rejouer_button: Button = $Root/CenterContainer/PanelContainer/VBoxContainer/RejouerButton
 @onready var menu_button: Button = $Root/CenterContainer/PanelContainer/VBoxContainer/MenuButton
 @onready var quitter_button: Button = $Root/CenterContainer/PanelContainer/VBoxContainer/QuitterButton
+@onready var background: TextureRect = $Root/Background
+var image_defaite = preload("res://assets/sprites/defaite.png")
+var image_victoire = preload("res://assets/sprites/victoire.png")
+
 
 func _ready() -> void:
 	get_tree().paused = false
-	var victoire: bool = bool(resultat.get("victoire", false))
+	var victoire = get_tree().get_meta("victoire", false)
+	afficher_resultat(victoire)
 	var score: int = int(resultat.get("score", 0))
 	var temps: float = float(resultat.get("temps", 0.0))
 	var record: int = int(resultat.get("meilleur_score", 0))
@@ -35,3 +40,9 @@ func _on_menu_pressed() -> void:
 
 func _on_quitter_pressed() -> void:
 	get_tree().quit()
+
+func afficher_resultat(victoire: bool) -> void:
+	if victoire:
+		background.texture = image_victoire
+	else:
+		background.texture = image_defaite
