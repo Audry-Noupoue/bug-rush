@@ -1,7 +1,6 @@
 
 extends Control
 
-# Minimap : projection des coordonnees du monde vers une carte 2D.
 
 @export var largeur_carte: float = 260.0
 @export var hauteur_carte: float = 105.0
@@ -51,7 +50,6 @@ func _process(_delta: float) -> void:
 		queue_redraw()
 
 
-# Recuperer les objets, meme ceux imbriques.
 func recuperer_objets(noeud: Node) -> Array[Node2D]:
 	var objets: Array[Node2D] = []
 
@@ -64,7 +62,6 @@ func recuperer_objets(noeud: Node) -> Array[Node2D]:
 	return objets
 
 
-# Convertir une position du monde en position sur la carte.
 func projeter(position_monde: Vector2) -> Vector2:
 	var x: float = (position_monde.x - debut_x) / maxf(1.0, fin_x - debut_x)
 	var y: float = (position_monde.y - haut_y) / maxf(1.0, bas_y - haut_y)
@@ -75,24 +72,10 @@ func projeter(position_monde: Vector2) -> Vector2:
 	)
 
 
-# Dessiner un objet selon son groupe.
 func dessiner_objet(objet: Node2D, type_objet: String) -> void:
 	var pos: Vector2 = objet.global_position
 
 	match type_objet:
-		"plateformes":
-			var demi_largeur: float = 65.0 * absf(objet.global_scale.x)
-			var collision := objet.get_node_or_null("CollisionShape2D") as CollisionShape2D
-
-			if collision != null and collision.shape is RectangleShape2D:
-				demi_largeur = collision.shape.size.x * 0.5 * absf(objet.global_scale.x)
-
-			draw_line(
-				projeter(pos + Vector2(-demi_largeur, 0)),
-				projeter(pos + Vector2(demi_largeur, 0)),
-				Color.CYAN,
-				3.0
-			)
 
 		"ponts":
 			var demi_pont: float = 60.0 * absf(objet.global_scale.x)
@@ -128,14 +111,12 @@ func dessiner_objet(objet: Node2D, type_objet: String) -> void:
 
 
 func _draw() -> void:
-	# Fond de la carte.
 	draw_rect(
 		Rect2(Vector2.ZERO, Vector2(largeur_carte, hauteur_carte)),
 		Color(0.055, 0.11, 0.14, 0.88),
 		true
 	)
 
-	# Bordure.
 	draw_rect(
 		Rect2(Vector2.ZERO, Vector2(largeur_carte, hauteur_carte)),
 		Color(0.45, 0.83, 0.63),
@@ -149,7 +130,6 @@ func _draw() -> void:
 	if terrain.zones_plateformes.is_empty():
 		return
 
-	# 1. SOL GENERE
 	for zone in terrain.zones_plateformes:
 		var x: float = float(zone["x"])
 		var y: float = float(zone["y"])
@@ -162,9 +142,7 @@ func _draw() -> void:
 			4.0
 		)
 
-	# 2. OBJETS PAR GROUPES
 	var groupes: Array[String] = [
-		"plateformes",
 		"ponts",
 		"rochers",
 		"piques",
@@ -184,13 +162,10 @@ func _draw() -> void:
 			if not objet.is_in_group("medailles"):
 				dessiner_objet(objet, "medailles")			
 
-	# 3. ARAIGNEE PRINCIPALE
-	# Affiche l'araignee si elle n'est pas deja dans le groupe.
 	if araignee != null and is_instance_valid(araignee):
 		if not araignee.is_in_group("araignees"):
 			dessiner_objet(araignee, "araignees")
 
-	# 4. ARRIVEE
 	if arrivee != null and is_instance_valid(arrivee):
 		draw_circle(
 			projeter(arrivee.global_position),
@@ -198,7 +173,6 @@ func _draw() -> void:
 			Color(1.0, 0.88, 0.3)
 		)
 
-	# 5. CRIQUET
 	if criquet != null and is_instance_valid(criquet):
 		var p: Vector2 = projeter(criquet.global_position)
 
