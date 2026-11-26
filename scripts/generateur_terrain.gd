@@ -1,40 +1,73 @@
+
 extends Node2D
 
 @export var plateforme_scene: PackedScene = preload("res://scenes/levels/plateforme.tscn")
+@export var champignon_scene: PackedScene = preload("res://scenes/objets/champignon_toxique.tscn")
+@export var checkpoint_scene: PackedScene = preload("res://scenes/objets/checkpoint.tscn")
+@export var rocher_scene: PackedScene = preload("res://scenes/objets/rocher.tscn")
+@export var pics_scene: PackedScene = preload("res://scenes/objets/pics.tscn")
+
 var medaille_scene = preload("res://scenes/objets/medaille.tscn")
 var section_sol_scene = preload("res://scenes/levels/section_sol.tscn")
 var pont_scene = preload("res://scenes/levels/pont_bois.tscn")
-@export var champignon_scene: PackedScene = preload("res://scenes/objets/champignon_toxique.tscn")
-@export var checkpoint_scene: PackedScene = preload("res://scenes/objets/checkpoint.tscn")
+
 @onready var son_medaille: AudioStreamPlayer = $SonMedaille
 
 signal medaille_ramassee
 signal champignon_touche
 signal obstacle_touche
 
-@export var rocher_scene: PackedScene = preload("res://scenes/objets/rocher.tscn")
-@export var pics_scene: PackedScene = preload("res://scenes/objets/pics.tscn")
-
 @export var nombre_sections: int = 12
 @export var probabilite_obstacles: float = 1.0
+@export var marge_securite: float = 15.0
 
 var zones_plateformes = []
 var positions_plateformes = []
-var zones_occupees = []
+var zones_occupees: Array[Rect2] = []
 
 
 func _ready():
+	reserver_zone_araignee()
 	generer_sol()
 	generer_checkpoints()
+	generer_champignons()
 	generer_plateformes()
 	generer_plateformes_passage()
 	generer_obstacles()
+	generer_medailles_sol()
+
+
+# Verifier si une zone est disponible
+func zone_disponible(zone: Rect2) -> bool:
+	for ancienne_zone in zones_occupees:
+		if zone.grow(marge_securite).intersects(ancienne_zone):
+			return false
+
+	return true
+
+
+# Reserver une zone
+func reserver_zone(zone: Rect2) -> void:
+	zones_occupees.append(zone)
+
+
+# GENERATION DES CHECKPOINTS
 
 func creer_checkpoint(x: float, hauteur_sol: float) -> void:
+	var zone = Rect2(
+		Vector2(x - 40, hauteur_sol - 120),
+		Vector2(120, 120)
+	)
+
+	if not zone_disponible(zone):
+		return
+
 	var checkpoint = checkpoint_scene.instantiate()
+	checkpoint.position = Vector2(x, hauteur_sol)
 	add_child(checkpoint)
 
-	checkpoint.global_position = Vector2(x, hauteur_sol)
+	reserver_zone(zone)
+
 
 func generer_checkpoints() -> void:
 	for i in range(zones_plateformes.size()):
@@ -46,6 +79,18 @@ func generer_checkpoints() -> void:
 
 			creer_checkpoint(x, y)
 
+
+# GENERATION DES CHAMPIGNONS
+
+func generer_champignons() -> void:
+	for zone in zones_plateformes:
+		generer_champignon(
+			zone["x"],
+			zone["largeur"],
+			zone["y"]
+		)
+
+
 func generer_champignon(position_x: float, largeur_sol: float, hauteur_sol: float):
 	if randi_range(1, 10) > 3:
 		return
@@ -53,33 +98,40 @@ func generer_champignon(position_x: float, largeur_sol: float, hauteur_sol: floa
 	if largeur_sol <= 160:
 		return
 
-	var x = randf_range(
-		position_x + 80,
-		position_x + largeur_sol - 80
-	)
+	# Essayer plusieurs positions
+	for tentative in range(5):
+		var x = randf_range(
+			position_x + 80,
+			position_x + largeur_sol - 80
+		)
 
-	# Creer le champignon
-	var champignon = champignon_scene.instantiate()
-	add_child(champignon)
+		var zone = Rect2(
+			Vector2(x - 40, hauteur_sol - 90),
+			Vector2(80, 90)
+		)
 
-	# Placer le bas du champignon sur l'herbe
-	champignon.position = Vector2(x, hauteur_sol - 40)
+		if not zone_disponible(zone):
+			continue
 
-	# Connecter son signal au generateur
-	champignon.criquet_touche.connect(
-		_on_champignon_touche
-	)
+		var champignon = champignon_scene.instantiate()
+		champignon.position = Vector2(x, hauteur_sol - 40)
+		add_child(champignon)
+
+		champignon.criquet_touche.connect(
+			_on_champignon_touche
+		)
+
+		reserver_zone(zone)
+		return
 
 
 func _on_champignon_touche():
 	champignon_touche.emit()
 
 
-
+# GENERATION DES PLATEFORMES
 
 func generer_plateformes():
-	
-
 	for zone in zones_plateformes:
 		# 70 % de chances de creer une plateforme
 		if randi_range(1, 10) > 7:
@@ -99,7 +151,6 @@ func generer_plateformes():
 
 		var position_y = hauteur_sol - randf_range(120.0, 200.0)
 
-		# Choisir le type de plateforme
 		var type_plateforme = randi_range(0, 2)
 
 		var direction = Vector2.ZERO
@@ -113,33 +164,24 @@ func generer_plateformes():
 			direction = Vector2.UP
 			distance = 60.0
 
-		# Calculer toute la zone de mouvement
 		var depart = Vector2(position_x, position_y)
 		var arrivee = depart + direction * distance
 
+		# Reserver le trajet de la plateforme et sa medaille
 		var zone_mouvement = Rect2(
 			Vector2(
 				minf(depart.x, arrivee.x) - 120.0,
-				minf(depart.y, arrivee.y) - 35.0
+				minf(depart.y, arrivee.y) - 80.0
 			),
 			Vector2(
 				absf(arrivee.x - depart.x) + 240.0,
-				absf(arrivee.y - depart.y) + 70.0
+				absf(arrivee.y - depart.y) + 115.0
 			)
 		)
 
-		# Verifier les chevauchements
-		var chevauchement = false
-
-		for ancienne_zone in zones_occupees:
-			if zone_mouvement.intersects(ancienne_zone):
-				chevauchement = true
-				break
-
-		if chevauchement:
+		if not zone_disponible(zone_mouvement):
 			continue
 
-		# Creer la plateforme
 		var plateforme = plateforme_scene.instantiate()
 
 		plateforme.mobile = type_plateforme != 0
@@ -149,17 +191,21 @@ func generer_plateformes():
 
 		plateforme.position = depart
 		add_child(plateforme)
+
 		positions_plateformes.append(plateforme.position)
+		reserver_zone(zone_mouvement)
 
-		zones_occupees.append(zone_mouvement)
-
-		# Ajouter une medaille
+		# Ajouter une medaille sur la plateforme
 		var medaille = medaille_scene.instantiate()
-		plateforme.add_child(medaille)
 		medaille.position = Vector2(0, -50)
-		medaille.medaille_ramassee.connect(_on_medaille_ramassee)
+		plateforme.add_child(medaille)
+
+		medaille.medaille_ramassee.connect(
+			_on_medaille_ramassee
+		)
 
 
+# GENERATION DES PLATEFORMES DE PASSAGE
 
 func generer_plateformes_passage():
 	for i in range(zones_plateformes.size() - 1):
@@ -186,11 +232,23 @@ func generer_plateformes_passage():
 
 		var position_y = hauteur_sol - 100.0
 
-		# Verifier la distance avant de creer la plateforme
+		var position_plateforme = Vector2(
+			position_x,
+			position_y
+		)
+
+		var zone_passage = Rect2(
+			position_plateforme - Vector2(120, 35),
+			Vector2(240, 70)
+		)
+
+		if not zone_disponible(zone_passage):
+			continue
+
 		var trop_proche = false
 
 		for ancienne_position in positions_plateformes:
-			if ancienne_position.distance_to(Vector2(position_x, position_y)) < 220:
+			if ancienne_position.distance_to(position_plateforme) < 220:
 				trop_proche = true
 				break
 
@@ -199,13 +257,15 @@ func generer_plateformes_passage():
 
 		var plateforme = plateforme_scene.instantiate()
 		plateforme.mobile = false
-		plateforme.position = Vector2(position_x, position_y)
+		plateforme.position = position_plateforme
 
 		add_child(plateforme)
+
 		positions_plateformes.append(plateforme.position)
+		reserver_zone(zone_passage)
 
 
-
+# GENERATION DU SOL
 
 func generer_sol():
 	var position_x = 105.0
@@ -227,32 +287,17 @@ func generer_sol():
 
 		section.configurer(largeur_sol, epaisseur_sol)
 
-		generer_champignon(position_x, largeur_sol, hauteur_surface)
-
 		zones_plateformes.append({
 			"x": position_x,
 			"largeur": largeur_sol,
 			"y": hauteur_surface
 		})
 
-		if randi_range(0, 1) == 1:
-			var medaille = medaille_scene.instantiate()
-
-			medaille.position = Vector2(
-				position_x + largeur_sol / 2.0,
-				hauteur_surface - 60
-			)
-
-			add_child(medaille)
-
-			medaille.medaille_ramassee.connect(
-				_on_medaille_ramassee
-			)
-
 		var prochaine_hauteur = hauteur_surface
 
 		if i < nombre_sections - 1:
 			prochaine_hauteur += randi_range(-1, 1) * 64
+
 			prochaine_hauteur = clamp(
 				prochaine_hauteur,
 				384.0,
@@ -265,7 +310,6 @@ func generer_sol():
 			if prochaine_hauteur == hauteur_surface:
 				if randi_range(0, 1) == 1:
 					var pont = pont_scene.instantiate()
-					add_child(pont)
 
 					pont.position = Vector2(
 						position_x + largeur_sol + largeur_trou / 2.0,
@@ -274,30 +318,117 @@ func generer_sol():
 
 					pont.scale.x = (largeur_trou + 20.0) / 120.0
 
+					add_child(pont)
+
+					var zone_pont = Rect2(
+						pont.position - Vector2(42, 15),
+						Vector2(84, 30)
+					)
+
+					reserver_zone(zone_pont)
+
 		position_x += largeur_sol + largeur_trou
 		hauteur_surface = prochaine_hauteur
 
+
+# GENERATION DES OBSTACLES
+
+func generer_obstacles() -> void:
+	for i in range(1, zones_plateformes.size() - 1):
+		var zone: Dictionary = zones_plateformes[i]
+		var largeur: float = float(zone["largeur"])
+
+		if largeur < 320.0 or randf() > probabilite_obstacles:
+			continue
+
+		# Essayer plusieurs positions
+		for tentative in range(5):
+			var x: float = float(zone["x"]) + largeur * randf_range(0.35, 0.65)
+			var y: float = float(zone["y"])
+
+			var zone_obstacle = Rect2(
+				Vector2(x - 60, y - 80),
+				Vector2(120, 80)
+			)
+
+			if not zone_disponible(zone_obstacle):
+				continue
+
+			if i % 5 == 0:
+				var pics = pics_scene.instantiate()
+				pics.position = Vector2(x, y)
+				add_child(pics)
+
+				pics.criquet_touche.connect(
+					func(): obstacle_touche.emit()
+				)
+
+			else:
+				var rocher = rocher_scene.instantiate()
+				rocher.position = Vector2(x, y - 26.0)
+				add_child(rocher)
+
+			reserver_zone(zone_obstacle)
+			break
+
+
+# GENERATION DES MEDAILLES AU SOL
+
+func generer_medailles_sol() -> void:
+	for zone in zones_plateformes:
+		if randi_range(0, 1) == 0:
+			continue
+
+		var largeur: float = float(zone["largeur"])
+		var debut: float = float(zone["x"])
+		var hauteur: float = float(zone["y"])
+
+		for tentative in range(5):
+			var x = randf_range(
+				debut + 60,
+				debut + largeur - 60
+			)
+
+			var position_medaille = Vector2(
+				x,
+				hauteur - 60
+			)
+
+			var zone_medaille = Rect2(
+				position_medaille - Vector2(25, 25),
+				Vector2(50, 50)
+			)
+
+			if not zone_disponible(zone_medaille):
+				continue
+
+			var medaille = medaille_scene.instantiate()
+			medaille.position = position_medaille
+			add_child(medaille)
+
+			medaille.medaille_ramassee.connect(
+				_on_medaille_ramassee
+			)
+
+			reserver_zone(zone_medaille)
+			break
 
 
 func _on_medaille_ramassee():
 	medaille_ramassee.emit()
 	son_medaille.play()
 
+func reserver_zone_araignee() -> void:
+	var araignee = get_parent().get_node_or_null("Araignee")
 
-func generer_obstacles() -> void:
-	for i in range(1, zones_plateformes.size() - 1):
-		var zone: Dictionary = zones_plateformes[i]
-		var largeur: float = float(zone["largeur"])
-		if largeur < 320.0 or randf() > probabilite_obstacles:
-			continue
-		var x: float = float(zone["x"]) + largeur * randf_range(0.35, 0.65)
-		var y: float = float(zone["y"])
-		if i % 5 == 0:
-			var pics = pics_scene.instantiate()
-			add_child(pics)
-			pics.position = Vector2(x, y)
-			pics.criquet_touche.connect(func(): obstacle_touche.emit())
-		else:
-			var rocher = rocher_scene.instantiate()
-			add_child(rocher)
-			rocher.position = Vector2(x, y - 26.0)
+	if araignee == null:
+		return
+
+	var pos = to_local(araignee.global_position)
+
+	var zone = Rect2(
+		Vector2(pos.x - 100, pos.y - 80),
+		Vector2(200, 180)
+	)
+
+	reserver_zone(zone)

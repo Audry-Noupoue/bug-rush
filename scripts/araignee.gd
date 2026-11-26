@@ -102,26 +102,34 @@ func _physics_process(delta: float) -> void:
 		temps_bloque = 0.0
 	derniere_position_x = global_position.x
 
+	
 	if is_on_floor() and temps_saut <= 0.0:
 		if etat == Etat.POURSUITE:
 			var criquet_plus_haut: bool = criquet.global_position.y < global_position.y - 45.0
+
 			if obstacle_devant or bord_devant or criquet_plus_haut or temps_bloque > 0.2:
 				velocity.y = force_saut
 				temps_saut = delai_entre_sauts
+
 		elif etat == Etat.PATROUILLE or etat == Etat.RETOUR:
-			# Eviter les trous durant la patrouille et le retour.
 			if bord_devant:
 				if etat == Etat.PATROUILLE:
 					direction *= -1.0
 					velocity.x = direction * vitesse_patrouille
 				else:
 					velocity.x = 0.0
+
 			elif obstacle_devant:
-				velocity.y = force_saut
-				temps_saut = delai_entre_sauts
+				if etat == Etat.PATROUILLE:
+					direction *= -1.0
+					velocity.x = direction * vitesse_patrouille
+				else:
+					velocity.y = force_saut
+					temps_saut = delai_entre_sauts
 
 	move_and_slide()
 	_mettre_a_jour_animation()
+
 
 
 func _configurer_animations() -> void:
