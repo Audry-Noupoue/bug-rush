@@ -1,10 +1,10 @@
 extends Node2D
 
-var plateforme_scene = preload("res://scenes/levels/plateforme.tscn")
+@export var plateforme_scene: PackedScene = preload("res://scenes/levels/plateforme.tscn")
 var medaille_scene = preload("res://scenes/objets/medaille.tscn")
 var section_sol_scene = preload("res://scenes/levels/section_sol.tscn")
 var pont_scene = preload("res://scenes/levels/pont_bois.tscn")
-var champignon_scene = preload("res://scenes/objets/champignon_toxique.tscn")
+@export var champignon_scene: PackedScene = preload("res://scenes/objets/champignon_toxique.tscn")
 @export var checkpoint_scene: PackedScene = preload("res://scenes/objets/checkpoint.tscn")
 @onready var son_medaille: AudioStreamPlayer = $SonMedaille
 
@@ -12,8 +12,8 @@ signal medaille_ramassee
 signal champignon_touche
 signal obstacle_touche
 
-var rocher_scene = preload("res://scenes/objets/rocher.tscn")
-var pics_scene = preload("res://scenes/objets/pics.tscn")
+@export var rocher_scene: PackedScene = preload("res://scenes/objets/rocher.tscn")
+@export var pics_scene: PackedScene = preload("res://scenes/objets/pics.tscn")
 
 @export var nombre_sections: int = 12
 @export var probabilite_obstacles: float = 1.0

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bgu23v4t6llmf"]
+
+[ext_resource type="Script" uid="uid://c47vlyl0hw347" path="res://scripts/plateforme.gd" id="1_7fjax"]
+[ext_resource type="Texture2D" uid="uid://bahwgfxyn2p2v" path="res://assets/sprites/Plateforme_nocturne.png" id="2_7fjax"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtti8"]
+size = Vector2(200, 20)
+
+[node name="Plateforme" type="AnimatableBody2D" unique_id=1812007434]
+script = ExtResource("1_7fjax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=466818644]
+shape = SubResource("RectangleShape2D_vtti8")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1024742125]
+visible = false
+color = Color(0.015686275, 0.5686275, 0.023529412, 1)
+polygon = PackedVector2Array(-100, -10, 100, -10, 100, 10, -100, 10)
+
+[node name="Apparence" type="Sprite2D" parent="." unique_id=1927210558]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_7fjax")

@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://b5d6opt5bpokl" path="res://scripts/niveau_2.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dpp173vbu2f5i" path="res://scenes/player/criquet.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bsdexat6tf74q" path="res://scripts/generateur_niveau_2.gd" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bgu23v4t6llmf" path="res://scenes/levels/plateforme_nocturne.tscn" id="4_u2du6"]
+[ext_resource type="PackedScene" uid="uid://bhlthxn277kmt" path="res://scenes/objets/champignon_nocturne.tscn" id="4_w437x"]
+[ext_resource type="PackedScene" uid="uid://cfcnfynpwfiig" path="res://scenes/objets/rocher_nocturne.tscn" id="5_36d61"]
+[ext_resource type="PackedScene" uid="uid://dya87sn0rbsej" path="res://scenes/objets/pics_nocturne.tscn" id="6_u2du6"]
 [ext_resource type="PackedScene" uid="uid://bnlpo5bjsaiks" path="res://scenes/ennemis/araignee.tscn" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://dw5ngq7ord8q3" path="res://assets/audio/bug_rush_piece.wav" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://c7taae0xc8det" path="res://scenes/pause_menu.tscn" id="11_ya4ey"]
@@ -47,6 +51,10 @@ position = Vector2(300, 450)
 
 [node name="GenerateurTerrain" type="Node2D" parent="." unique_id=1260730045]
 script = ExtResource("3_sugp2")
+plateforme_scene = ExtResource("4_u2du6")
+champignon_scene = ExtResource("4_w437x")
+rocher_scene = ExtResource("5_36d61")
+pics_scene = ExtResource("6_u2du6")
 
 [node name="SonMedaille" type="AudioStreamPlayer" parent="GenerateurTerrain" unique_id=639785581]
 stream = ExtResource("9_choun")

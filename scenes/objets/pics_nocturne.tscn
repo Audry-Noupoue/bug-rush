@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dya87sn0rbsej"]
+
+[ext_resource type="Script" uid="uid://byj4vk884sq64" path="res://scripts/pics.gd" id="1_vut2v"]
+[ext_resource type="Texture2D" uid="uid://c0ihtef6iaosd" path="res://assets/sprites/Pics_cristallins.png" id="2_vut2v"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(70, 18)
+
+[node name="Pics" type="Area2D" unique_id=1044913635]
+collision_layer = 0
+script = ExtResource("1_vut2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1648800065]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=86269685]
+position = Vector2(0, -10)
+scale = Vector2(0.04, 0.085)
+texture = ExtResource("2_vut2v")

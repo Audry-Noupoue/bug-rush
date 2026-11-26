@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dc5hcbe8lkv4p"]
 
 [ext_resource type="Script" uid="uid://dmyxbb2bobdl3" path="res://scripts/champignon_toxique.gd" id="1_tgvc7"]
-[ext_resource type="Texture2D" uid="uid://dqfl6wtxrgtvo" path="res://assets/sprites/Champignon_toxique.png" id="2_t07d1"]
+[ext_resource type="Texture2D" uid="uid://d3h1bx3jmq2e0" path="res://assets/sprites/Champignon_toxique.png" id="2_t07d1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ksodl"]
 radius = 43.0
