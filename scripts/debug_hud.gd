@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("debug") and not event.is_echo():
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and not event.echo and (event.keycode == KEY_F12 or event.physical_keycode == KEY_F12):
 		panel.visible = not panel.visible
 		get_viewport().set_input_as_handled()
 

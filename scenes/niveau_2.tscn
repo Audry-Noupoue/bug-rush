@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cs6v0ly3yxgb5"]
 
+[ext_resource type="AudioStream" path="res://assets/audio/mort_criquet.wav" id="mort_2"]
 [ext_resource type="Script" uid="uid://b5d6opt5bpokl" path="res://scripts/niveau_2.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dpp173vbu2f5i" path="res://scenes/player/criquet.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bsdexat6tf74q" path="res://scripts/generateur_niveau_2.gd" id="3_sugp2"]
@@ -14,8 +15,7 @@
 [ext_resource type="PackedScene" path="res://scenes/objets/arrivee.tscn" id="14_finish"]
 [ext_resource type="PackedScene" path="res://scenes/minimap.tscn" id="15_minimap"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6qnsx"]
-load_path = "res://.godot/imported/Foret_nocturne.png-e52c86b5b40590c0f54489115d759805.ctex"
+[ext_resource type="Texture2D" path="res://assets/sprites/niveau_2/labyrinthe_complet.png" id="night_bg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3i8up"]
 size = Vector2(10000, 100)
@@ -35,26 +35,107 @@ corner_radius_bottom_left = 15
 [node name="Niveau2" type="Node2D" unique_id=1734721121]
 script = ExtResource("1_jyhfs")
 
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=61829992]
-scroll_scale = Vector2(0.1, 0.1)
-repeat_size = Vector2(1152, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1075800868]
+[node name="ImageLabyrinthe" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(576, 324)
-scale = Vector2(0.69, 0.69)
-texture = SubResource("CompressedTexture2D_6qnsx")
+centered = false
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("night_bg")
+
+[node name="CollisionsLabyrinthe" type="StaticBody2D" parent="."]
+
+[node name="Surface0_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(0.00, 217.50, 296.76, 217.50, 296.76, 235.76, 0.00, 235.76)
+
+[node name="Surface1_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(334.81, 342.23, 471.77, 342.23, 471.77, 360.48, 334.81, 360.48)
+
+[node name="Surface1_1" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(471.77, 342.23, 563.08, 304.20, 563.08, 322.45, 471.77, 360.48)
+
+[node name="Surface1_2" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(563.08, 304.20, 639.17, 250.97, 639.17, 269.22, 563.08, 322.45)
+
+[node name="Surface1_3" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(639.17, 250.97, 707.66, 217.50, 707.66, 235.76, 639.17, 269.22)
+
+[node name="Surface1_4" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(707.66, 217.50, 1118.56, 217.50, 1118.56, 235.76, 707.66, 235.76)
+
+[node name="Surface2_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1148.99, 299.64, 1491.41, 299.64, 1491.41, 317.89, 1148.99, 317.89)
+
+[node name="Surface3_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(0.00, 742.25, 502.21, 742.25, 502.21, 760.51, 0.00, 760.51)
+
+[node name="Surface4_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(532.65, 593.20, 943.54, 593.20, 943.54, 611.45, 532.65, 611.45)
+
+[node name="Surface4_1" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(943.54, 593.20, 1004.42, 616.01, 1004.42, 634.26, 943.54, 611.45)
+
+[node name="Surface4_2" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1004.42, 616.01, 1110.95, 670.77, 1110.95, 689.02, 1004.42, 634.26)
+
+[node name="Surface4_3" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1110.95, 670.77, 1674.03, 670.77, 1674.03, 689.02, 1110.95, 689.02)
+
+[node name="Surface5_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1681.64, 471.51, 2130.58, 471.51, 2130.58, 489.77, 1681.64, 489.77)
+
+[node name="Surface6_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(2161.02, 334.62, 2508.00, 334.62, 2508.00, 352.88, 2161.02, 352.88)
+
+[node name="Surface7_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1658.81, 882.19, 1879.48, 882.19, 1879.48, 900.44, 1658.81, 900.44)
+
+[node name="Surface8_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1902.31, 790.93, 2508.00, 790.93, 2508.00, 809.18, 1902.31, 809.18)
+
+[node name="Surface9_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(273.93, 1148.36, 479.38, 1148.36, 479.38, 1166.62, 273.93, 1166.62)
+
+[node name="Surface10_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(509.82, 1057.10, 745.70, 1057.10, 745.70, 1075.36, 509.82, 1075.36)
+
+[node name="Surface11_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(776.14, 968.89, 973.98, 968.89, 973.98, 987.14, 776.14, 987.14)
+
+[node name="Surface12_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(456.55, 1292.86, 989.20, 1292.86, 989.20, 1311.11, 456.55, 1311.11)
+
+[node name="Surface12_1" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(989.20, 1292.86, 1050.07, 1274.61, 1050.07, 1292.86, 989.20, 1311.11)
+
+[node name="Surface12_2" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1050.07, 1274.61, 1110.95, 1232.02, 1110.95, 1250.27, 1050.07, 1292.86)
+
+[node name="Surface13_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1141.38, 1133.15, 1400.10, 1133.15, 1400.10, 1151.41, 1141.38, 1151.41)
+
+[node name="Surface13_1" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1400.10, 1133.15, 1476.19, 1095.13, 1476.19, 1113.38, 1400.10, 1151.41)
+
+[node name="Surface13_2" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1476.19, 1095.13, 1582.72, 1026.68, 1582.72, 1044.94, 1476.19, 1113.38)
+
+[node name="Surface14_0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(1689.25, 1194.00, 2508.00, 1194.00, 2508.00, 1212.25, 1689.25, 1212.25)
+
+[node name="Bord0" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(-38.05, -30.42, 0.00, -30.42, 0.00, 1444.96, -38.05, 1444.96)
+
+[node name="Bord1" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(2508.00, -30.42, 2546.05, -30.42, 2546.05, 1444.96, 2508.00, 1444.96)
+
+[node name="Bord2" type="CollisionPolygon2D" parent="CollisionsLabyrinthe"]
+polygon = PackedVector2Array(0.00, -38.03, 2508.00, -38.03, 2508.00, 0.00, 0.00, 0.00)
 
 [node name="Criquet" parent="." unique_id=1916629442 instance=ExtResource("1_o5qli")]
 z_index = 5
-position = Vector2(300, 450)
+position = Vector2(136.97, 192.50)
 
 [node name="GenerateurTerrain" type="Node2D" parent="." unique_id=1260730045]
 script = ExtResource("3_sugp2")
-plateforme_scene = ExtResource("4_u2du6")
-champignon_scene = ExtResource("4_w437x")
-rocher_scene = ExtResource("5_36d61")
-pics_scene = ExtResource("6_u2du6")
 
 [node name="SonMedaille" type="AudioStreamPlayer" parent="GenerateurTerrain" unique_id=639785581]
 stream = ExtResource("9_choun")
@@ -62,7 +143,7 @@ volume_db = 24.0
 bus = &"SFX"
 
 [node name="ZoneChute" type="Area2D" parent="." unique_id=101015858]
-position = Vector2(3000, 750)
+position = Vector2(1250, 1500)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneChute" unique_id=1655080206]
 shape = SubResource("RectangleShape2D_3i8up")
@@ -81,32 +162,26 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vtti8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer/PanelContainer" unique_id=2062826954]
 layout_mode = 2
-theme_override_constants/separation = -25
+theme_override_constants/separation = 4
 
 [node name="LabelVies" type="Label" parent="HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=2070659491]
 layout_mode = 2
 size_flags_vertical = 8
-offset_transform_enabled = true
-offset_transform_position = Vector2(20, 20)
 theme_override_font_sizes/font_size = 24
 text = "Vies : 3"
 
 [node name="LabelTemps" type="Label" parent="HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=494027763]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(20, 50)
 theme_override_font_sizes/font_size = 24
 text = "Temps : 0 s"
 
 [node name="LabelScore" type="Label" parent="HUD/MarginContainer/PanelContainer/VBoxContainer" unique_id=135755415]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(20, 80)
 theme_override_font_sizes/font_size = 24
 text = "Score : 0"
 
 [node name="Araignee" parent="." unique_id=259706077 instance=ExtResource("9_85g3d")]
-position = Vector2(719, 434)
+position = Vector2(1247.91, 625.77)
 
 [node name="ZoneArrivee" parent="." unique_id=1392563447 instance=ExtResource("14_finish")]
 position = Vector2(7000, 390)
@@ -126,6 +201,10 @@ visible = false
 
 [node name="DebugHUD" parent="." unique_id=1981264167 instance=ExtResource("12_eb6dy")]
 process_mode = 0
+
+[node name="SonMort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("mort_2")
+volume_db = 10.0
 
 [connection signal="champignon_touche" from="GenerateurTerrain" to="." method="_on_generateur_terrain_champignon_touche"]
 [connection signal="medaille_ramassee" from="GenerateurTerrain" to="." method="_on_generateur_terrain_medaille_ramassee"]

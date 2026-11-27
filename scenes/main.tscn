@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c7taae0xc8det" path="res://scenes/pause_menu.tscn" id="11_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://belr6aye27lv7" path="res://scenes/debug_hud.tscn" id="12_eb6dy"]
 [ext_resource type="PackedScene" path="res://scenes/objets/arrivee.tscn" id="14_finish"]
+[ext_resource type="AudioStream" uid="uid://c073yavnwb1g0" path="res://assets/audio/mort_criquet.wav" id="15_jkv2x"]
 [ext_resource type="PackedScene" path="res://scenes/minimap.tscn" id="15_minimap"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3i8up"]
@@ -159,6 +160,10 @@ visible = false
 
 [node name="DebugHUD" parent="." unique_id=1981264167 instance=ExtResource("12_eb6dy")]
 process_mode = 0
+
+[node name="SonMort" type="AudioStreamPlayer" parent="." unique_id=407058184]
+stream = ExtResource("15_jkv2x")
+volume_db = 10.0
 
 [connection signal="champignon_touche" from="GenerateurTerrain" to="." method="_on_generateur_terrain_champignon_touche"]
 [connection signal="medaille_ramassee" from="GenerateurTerrain" to="." method="_on_generateur_terrain_medaille_ramassee"]

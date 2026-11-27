@@ -4,9 +4,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtti8"]
 content_margin_left = 25.0
-content_margin_top = 25.0
+content_margin_top = 14.0
 content_margin_right = 25.0
-content_margin_bottom = 25.0
+content_margin_bottom = 14.0
 bg_color = Color(0.16078432, 0.29411766, 0.20784314, 1)
 border_width_left = 3
 border_width_top = 3
@@ -62,12 +62,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vtti8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1890290055]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 5
 
 [node name="Title" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=82822080]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9607843, 0.84313726, 0.43137255, 1)
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "INSTRUCTIONS"
 horizontal_alignment = 1
 
@@ -79,57 +79,181 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1582963293]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=766905231]
+[node name="Commandes" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 20
-columns = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "COMMANDES"
 
-[node name="LabelPause" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=1679934793]
-custom_minimum_size = Vector2(230, 55)
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Pause : P"
-horizontal_alignment = 1
-vertical_alignment = 1
+columns = 3
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 2
 
-[node name="LabelDeplacement" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=936371247]
-custom_minimum_size = Vector2(230, 55)
+[node name="Commande0_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Déplacement : Gauche / Droite / A / D"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "Action"
 
-[node name="LabelSaut" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=2013227559]
-custom_minimum_size = Vector2(230, 55)
+[node name="Commande0_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Saut : Espace"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "Clavier"
 
-[node name="LabelDash" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer" unique_id=439131772]
-custom_minimum_size = Vector2(230, 55)
+[node name="Commande0_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Dash : J"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "Xbox / PlayStation"
 
-[node name="LabelObjectif" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1649561343]
+[node name="Commande1_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Objectif : Ramasse les médailles, évite les dangers et atteins l'arrivée !"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 15
+text = "Déplacement"
+
+[node name="Commande1_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "A / D ou ← / →"
+
+[node name="Commande1_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Stick gauche / croix directionnelle"
+
+[node name="Commande2_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Saut"
+
+[node name="Commande2_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Espace"
+
+[node name="Commande2_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "A / Croix"
+
+[node name="Commande3_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Dash"
+
+[node name="Commande3_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "J"
+
+[node name="Commande3_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "X / Carré"
+
+[node name="Commande4_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Libérer"
+
+[node name="Commande4_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "E"
+
+[node name="Commande4_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "B / Cercle"
+
+[node name="Commande5_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Pause"
+
+[node name="Commande5_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "P"
+
+[node name="Commande5_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Menu / Options"
+
+[node name="Commande6_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Valider"
+
+[node name="Commande6_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Entrée"
+
+[node name="Commande6_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "A / Croix"
+
+[node name="Commande7_0" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Retour (options)"
+
+[node name="Commande7_1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Échap"
+
+[node name="Commande7_2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "B / Cercle"
+
+[node name="Niveau1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "NIVEAU 1  •  La course du jardin"
+
+[node name="Objectif1" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Ramasse les médailles et atteins la sortie."
+
+[node name="Niveau2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "NIVEAU 2  •  Le labyrinthe nocturne"
+
+[node name="Objectif2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Récupère 5 lucioles et libère 3 insectes avec E ou B / Cercle.\nLa sortie reste verrouillée tant que la quête est incomplète."
+
+[node name="Etoiles" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.96, 0.84, 0.43, 1)
+text = "RÉCOMPENSES"
+
+[node name="Conditions" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "★ Victoire   ★ 70 % des médailles   ★ Temps objectif"
 
 [node name="BackButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1995520363]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 42)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.11764706, 0.16470589, 0.09803922, 1)
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_3i8up")
-text = "	Retour"
+text = "Retour"

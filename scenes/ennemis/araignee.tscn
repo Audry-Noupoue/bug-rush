@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bnlpo5bjsaiks"]
 
 [ext_resource type="Script" uid="uid://b42f52auh4m0f" path="res://scripts/araignee.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://s2gitmwgq3s0" path="res://assets/audio/attaque_araignee.wav" id="2_pq66a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 20.0
@@ -12,15 +13,17 @@ script = ExtResource("1_script")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1198565654]
 shape = SubResource("CircleShape2D_body")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=319112157]
 position = Vector2(0, -5)
 scale = Vector2(0.42, 0.42)
 
-[node name="DetecteurObstacle" type="RayCast2D" parent="."]
+[node name="DetecteurObstacle" type="RayCast2D" parent="." unique_id=45841492]
 target_position = Vector2(35, 0)
-collision_mask = 1
 
-[node name="DetecteurSol" type="RayCast2D" parent="."]
+[node name="DetecteurSol" type="RayCast2D" parent="." unique_id=1172547987]
 position = Vector2(35, 0)
 target_position = Vector2(0, 55)
-collision_mask = 1
+
+[node name="SonAttaque" type="AudioStreamPlayer2D" parent="." unique_id=909134195]
+stream = ExtResource("2_pq66a")
+volume_db = 20.0

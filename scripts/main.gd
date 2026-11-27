@@ -2,9 +2,9 @@ extends Node2D
 
 const SceneFin = preload("res://scripts/game_over_menu.gd")
 
-const RECORD_FILE = "user://bug_rush_records.json"
 var vies: int = 3
 var score: int = 0
+var medailles_ramassees: int = 0
 var partie_terminee: bool = false
 var temps: float = 0.0
 var invulnerable: float = 0.0
@@ -22,12 +22,25 @@ var dernier_checkpoint: Vector2
 @onready var mini_map = $MiniMap/Carte
 @onready var vecteur_criquet: Line2D = $VecteurCriquet
 @onready var vecteur_araignee: Line2D = $VecteurAraignee
+@onready var son_mort: AudioStreamPlayer = get_node_or_null("SonMort")
 
 func _ready() -> void:
-	charger_records()
+	meilleur_score = int(Progression.donnees.get("2" if scene_est_niveau_2() else "1", {}).get("score", 0))
 	actualiser_vies()
 	actualiser_score()
 	araignee.attaque_criquet.connect(_on_araignee_attaque)
+	var seconde = preload("res://scenes/ennemis/araignee.tscn").instantiate()
+	seconde.name = "Araignee2"
+	if scene_est_niveau_2():
+		seconde.position = generateur.point(1370, 490)
+		seconde.vitesse_patrouille = 90.0
+		seconde.vitesse_poursuite = 170.0
+		seconde.distance_detection = 330.0
+	else:
+		var zone = generateur.zones_plateformes[generateur.zones_plateformes.size() >> 1]
+		seconde.position = Vector2(zone["x"] + zone["largeur"] / 2.0, zone["y"] - 30.0)
+	add_child(seconde)
+	seconde.attaque_criquet.connect(_on_araignee_attaque)
 	generateur.obstacle_touche.connect(perdre_vie)
 	dernier_checkpoint = criquet.global_position
 
@@ -75,7 +88,9 @@ func actualiser_score() -> void:
 func perdre_vie() -> void:
 	if partie_terminee or invulnerable > 0.0:
 		return
-
+		
+	if son_mort != null:
+		son_mort.play()
 	vies -= 1
 	actualiser_vies()
 
@@ -97,6 +112,7 @@ func _on_zone_chute_body_entered(body: Node2D) -> void:
 func _on_generateur_terrain_medaille_ramassee() -> void:
 	if partie_terminee:
 		return
+	medailles_ramassees += 1
 	score += 10
 	actualiser_score()
 
@@ -107,19 +123,14 @@ func _on_generateur_terrain_champignon_touche() -> void:
 	actualiser_score()
 
 func _on_arrivee(body: Node2D) -> void:
-	if body == criquet and not partie_terminee:
-		if scene_est_niveau_2():
-			terminer_partie(true)
-		else:
-			passer_niveau_2()
+	if body == criquet and not partie_terminee and sortie_accessible():
+		terminer_partie(true)
+
+func sortie_accessible() -> bool:
+	return true
 
 func scene_est_niveau_2() -> bool:
-	return get_tree().current_scene.scene_file_path.ends_with("niveau_2.tscn")
-
-func passer_niveau_2() -> void:
-	partie_terminee = true
-	get_tree().set_meta("progression_bug_rush", {"score": score, "vies": vies, "temps": temps})
-	get_tree().change_scene_to_file.call_deferred("res://scenes/niveau_2.tscn")
+	return scene_file_path.ends_with("niveau_2.tscn")
 
 func terminer_partie(victoire: bool) -> void:
 	if partie_terminee:
@@ -129,8 +140,21 @@ func terminer_partie(victoire: bool) -> void:
 	if victoire:
 		if score > meilleur_score:
 			meilleur_score = score
-		sauvegarder_records()
+	var niveau = 2 if scene_est_niveau_2() else 1
+	var etoiles = 0
+	if victoire:
+		etoiles = 1
+		if generateur.total_medailles > 0 and float(medailles_ramassees) / generateur.total_medailles >= 0.7:
+			etoiles += 1
+		if temps <= (120.0 if niveau == 1 else 180.0):
+			etoiles += 1
+		Progression.enregistrer(niveau, etoiles, temps, score)
 	SceneFin.resultat = {
+		"niveau": niveau,
+		"etoiles": etoiles,
+		"medailles": medailles_ramassees,
+		"total_medailles": generateur.total_medailles,
+		"vies": vies,
 		"victoire": victoire,
 		"score": score,
 		"temps": temps,
@@ -141,26 +165,3 @@ func terminer_partie(victoire: bool) -> void:
 	get_tree().change_scene_to_file.call_deferred(
 		"res://scenes/game_over_menu.tscn"
 	)
-func charger_records() -> void:
-	if not FileAccess.file_exists(RECORD_FILE):
-		return
-	var fichier = FileAccess.open(RECORD_FILE, FileAccess.READ)
-	if fichier == null:
-		return
-	var donnees = JSON.parse_string(fichier.get_as_text())
-	if donnees is Dictionary:
-		meilleur_score = int(donnees.get("meilleur_score", 0))
-
-func sauvegarder_records() -> void:
-	var fichier = FileAccess.open(RECORD_FILE, FileAccess.WRITE)
-	if fichier != null:
-		fichier.store_string(JSON.stringify({"meilleur_score": meilleur_score}))
-
-func _unhandled_key_input(event: InputEvent) -> void:
-	# F10 : acces rapide a la scene de fin pour l'evaluation.
-	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F10:
-		if scene_est_niveau_2():
-			terminer_partie(true)
-		else:
-			passer_niveau_2()
-		get_viewport().set_input_as_handled()

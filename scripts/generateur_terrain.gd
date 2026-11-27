@@ -21,6 +21,7 @@ signal obstacle_touche
 @export var probabilite_obstacles: float = 1.0
 @export var marge_securite: float = 15.0
 
+var total_medailles: int = 0
 var zones_plateformes = []
 var positions_plateformes = []
 var zones_occupees: Array[Rect2] = []
@@ -29,6 +30,9 @@ var zones_occupees: Array[Rect2] = []
 func _ready():
 	reserver_zone_araignee()
 	generer_sol()
+	var zone = zones_plateformes[zones_plateformes.size() >> 1]
+	reserver_zone(Rect2(zone["x"] + zone["largeur"] / 2.0 - 100.0, zone["y"] - 110.0, 200.0, 110.0))
+	generer_objets_quete()
 	generer_checkpoints()
 	generer_champignons()
 	generer_plateformes()
@@ -197,6 +201,7 @@ func generer_plateformes():
 
 		# Ajouter une medaille sur la plateforme
 		var medaille = medaille_scene.instantiate()
+		total_medailles += 1
 		medaille.position = Vector2(0, -50)
 		plateforme.add_child(medaille)
 
@@ -403,6 +408,7 @@ func generer_medailles_sol() -> void:
 				continue
 
 			var medaille = medaille_scene.instantiate()
+			total_medailles += 1
 			medaille.position = position_medaille
 			add_child(medaille)
 
@@ -432,3 +438,6 @@ func reserver_zone_araignee() -> void:
 	)
 
 	reserver_zone(zone)
+
+func generer_objets_quete() -> void:
+	pass

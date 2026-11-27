@@ -17,6 +17,7 @@ enum Etat { PATROUILLE, POURSUITE, ATTAQUE, RETOUR }
 @onready var detecteur_obstacle: RayCast2D = $DetecteurObstacle
 @onready var detecteur_sol: RayCast2D = $DetecteurSol
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var son_attaque: AudioStreamPlayer2D = get_node_or_null("SonAttaque")
 
 var etat: Etat = Etat.PATROUILLE
 var depart: Vector2
@@ -32,7 +33,7 @@ func _ready() -> void:
 	_configurer_animations()
 	depart = global_position
 	derniere_position_x = global_position.x
-	criquet = get_tree().current_scene.get_node_or_null("Criquet") as Node2D
+	criquet = get_parent().get_node_or_null("Criquet") as Node2D
 	add_to_group("araignees")
 
 
@@ -70,9 +71,17 @@ func _physics_process(delta: float) -> void:
 
 		Etat.ATTAQUE:
 			velocity.x = 0.0
+
 			if distance > distance_attaque:
 				etat = Etat.POURSUITE
+
 			elif temps_attaque <= 0.0:
+				if son_attaque != null:
+					son_attaque.play()
+					print("Son attaque joue")
+				else:
+					print("SonAttaque introuvable")
+
 				attaque_criquet.emit()
 				temps_attaque = delai_attaque
 

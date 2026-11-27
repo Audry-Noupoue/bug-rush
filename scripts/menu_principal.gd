@@ -17,10 +17,11 @@ func _ready() -> void:
 	quitter_button.pressed.connect(_on_quitter_pressed)
 	options_menu.closed.connect(_on_options_closed)
 	instructions_menu.closed.connect(_on_instructions_closed)
+	jouer_button.grab_focus()
 
 
 func _on_jouer_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/selection_niveaux.tscn")
 
 
 func _on_parametres_pressed() -> void:

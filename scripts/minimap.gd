@@ -106,6 +106,9 @@ func dessiner_objet(objet: Node2D, type_objet: String) -> void:
 		"checkpoints":
 			draw_circle(projeter(pos), 4.0, Color.GREEN)
 
+		"objets_quete":
+			draw_circle(projeter(pos), 4.0, Color.CYAN)
+
 		"araignees":
 			draw_circle(projeter(pos), 4.0, Color(1.0, 0.25, 0.36))
 
@@ -149,7 +152,8 @@ func _draw() -> void:
 		"champignons",
 		"medailles",
 		"checkpoints",
-		"araignees"
+		"araignees",
+		"objets_quete"
 	]
 
 	for groupe in groupes:
